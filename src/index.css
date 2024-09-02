@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.kbd.highlight {
+  background-color: #fca5a5;
+  color: white;
+}
