@@ -53,7 +53,7 @@ const Chat = ({ messages, message, setMessage, showPicker, setShowPicker, setUse
                             <div className="chat-bubble m-1">
                                 {msg.text}
                             </div>
-                            <div className="chat-header text-[8px] text-slate-300 pr-1 pl-2">
+                            <div className="chat-header text-[8px] pr-1 pl-2">
                                 {msg.username}
                             </div>
                         </div>
