@@ -1,23 +1,18 @@
 import { useState } from 'react'
 
-const User = ({ imgNmbrs, username, setUserJoin, setUsername, avatarUrl, setAvatarUrl }) => {
+const User = ({ imgNmbrs, setJoin, user, setUser }) => {
     const [selectedAvatar, setSelectedAvatar] = useState('');
 
     const setAvatar = (e) => {
         const avatarSrc = e.target.src;
-        localStorage.setItem('avatarUrl', avatarSrc);
         setSelectedAvatar(avatarSrc)
-        setAvatarUrl(avatarSrc);
-    }
-
-    const setName = (name) => {
-        setUsername(name);
-        localStorage.setItem('username', name);
+        setUser({ ...user, avatar: avatarSrc });
     }
 
     const setUserJoined = () => {
-        setUserJoin(true);
-        localStorage.setItem('userJoin', JSON.stringify({ username: username, avatar: avatarUrl }));
+        localStorage.setItem('user', JSON.stringify({ username: user.username, avatar: user.avatar }));
+        localStorage.setItem('join', true);
+        setJoin(true);
     }
 
     return (
@@ -30,11 +25,11 @@ const User = ({ imgNmbrs, username, setUserJoin, setUsername, avatarUrl, setAvat
                         type="text"
                         placeholder="Jane Doe"
                         aria-label="Full name"
-                        value={username}
-                        onChange={(e) => setName(e.target.value)}
+                        value={user.username}
+                        onChange={(e) => setUser({ ...user, username: e.target.value })}
                     />
                     <span className="flex-shrink-0 border-transparent border-4 text-teal-500 text-md py-1 px-2 rounded">
-                        Avatar {avatarUrl ?
+                        Avatar {user.avatar ?
                             <span className="text-green-600 text-xl">&#10003;</span>
                             : <span className="text-red-600 text-xl">&times;</span>
                         }
@@ -44,7 +39,7 @@ const User = ({ imgNmbrs, username, setUserJoin, setUsername, avatarUrl, setAvat
                          text-sm border-4 text-white py-1 px-2 rounded cursor-pointer disabled:cursor-default"
                         type="button"
                         onClick={setUserJoined}
-                        disabled={!username || !avatarUrl}
+                        disabled={!user.username || !user.avatar}
                     >
                         Join
                     </button>

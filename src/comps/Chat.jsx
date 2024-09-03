@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 import { v4 as uuidv4 } from 'uuid';
 import EmojiPicker from 'emoji-picker-react';
 
-const Chat = ({ messages, message, setMessage, showPicker, setShowPicker, username, avatarUrl, darkTheme }) => {
+const Chat = ({ messages, message, setMessage, showPicker, setShowPicker, setUser, user, darkTheme }) => {
     const getSessionId = () => {
         let sessionId = localStorage.getItem('sessionId');
         if (!sessionId) {
@@ -22,9 +22,9 @@ const Chat = ({ messages, message, setMessage, showPicker, setShowPicker, userna
             await push(messagesRef, {
                 text: message,
                 timestamp: new Date().toISOString(),
-                sessionId,
-                username,
-                avatarUrl,
+                sessionId: sessionId,
+                username: user.username,
+                avatar: user.avatar,
             });
 
             setMessage('');
@@ -46,7 +46,7 @@ const Chat = ({ messages, message, setMessage, showPicker, setShowPicker, userna
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS chat bubble component"
-                                        src={msg.avatarUrl}
+                                        src={msg.avatar}
                                     />
                                 </div>
                             </div>

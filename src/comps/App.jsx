@@ -10,9 +10,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
-  const [userJoin, setUserJoin] = useState(localStorage.getItem('userJoin') || false);
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const [avatarUrl, setAvatarUrl] = useState(localStorage.getItem('avatarUrl') || '');
+  const [join, setJoin] = useState(localStorage.getItem('join') === 'true');
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || { username: '', avatar: '' });
   const [showPicker, setShowPicker] = useState(false);
   const [darkTheme, setDarkTheme] = useState(true);
   const [imgNmbrs] = useState(getUniqueNumbers(5, 70));
@@ -23,19 +22,17 @@ function App() {
     setMessage,
     showPicker,
     setShowPicker,
-    username,
-    avatarUrl,
+    user,
+    setUser,
     imgNmbrs,
     darkTheme,
   };
 
   const userProps = {
     imgNmbrs,
-    setUserJoin,
-    username,
-    setUsername,
-    avatarUrl,
-    setAvatarUrl
+    setUser,
+    user,
+    setJoin,
   }
 
   useEffect(() => {
@@ -68,7 +65,7 @@ function App() {
     );
   }
 
-  if (!loading && !userJoin) {
+  if (!loading && !join) {
     return (
       <User {...userProps} />
     )
