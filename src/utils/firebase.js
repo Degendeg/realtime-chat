@@ -12,6 +12,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+let database;
+try {
+    database = getDatabase(app);
+} catch (error) {
+    alert(error.message)
+}
 
 export { database, ref, set, push, onValue };
